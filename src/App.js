@@ -1,11 +1,5 @@
 import { useState } from "react";
 
-const messages = [
-    "Learn React ⚛️",
-    "Apply for jobs 💼",
-    "Invest your new income 🤑",
-];
-
 function App() {
     const [step, setStep] = useState(1);
     const [isOpen, setIsOpen] = useState(true);
@@ -35,33 +29,59 @@ function App() {
                         <div className={step >= 3 ? "active" : ""}>3</div>
                     </div>
 
-                    <div className="message">
-                        Step {step}: {messages[step - 1]}
-                    </div>
+                    {step === 1 && (
+                        <StepMessage step="1">Learn React ⚛️</StepMessage>
+                    )}
+                    {step === 2 && (
+                        <StepMessage step="2">Apply for jobs 💼</StepMessage>
+                    )}
+                    {step === 3 && (
+                        <StepMessage step="3">
+                            Invest your new income 🤑
+                        </StepMessage>
+                    )}
 
                     <div className="buttons">
-                        <button
-                            style={{
-                                backgroundColor: "#7950f2",
-                                color: "#fff",
-                            }}
-                            onClick={handlePreviousClick}
+                        <Button
+                            bgColor="#7950f2"
+                            color="#fff"
+                            onClickHandler={handlePreviousClick}
                         >
-                            Previous
-                        </button>
-                        <button
-                            style={{
-                                backgroundColor: "#7950f2",
-                                color: "#fff",
-                            }}
-                            onClick={handleNextClick}
+                            <span>👈🏼</span>Previous
+                        </Button>
+                        <Button
+                            bgColor="#7950f2"
+                            color="#fff"
+                            onClickHandler={handleNextClick}
                         >
-                            Next
-                        </button>
+                            Next<span>👉🏾</span>
+                        </Button>
                     </div>
                 </div>
             )}
         </>
+    );
+}
+
+function StepMessage({ step, children }) {
+    return (
+        <div className="message">
+            Step {step}: {children}
+        </div>
+    );
+}
+
+function Button({ bgColor, color, onClickHandler, children }) {
+    return (
+        <button
+            style={{
+                backgroundColor: bgColor,
+                color: color,
+            }}
+            onClick={onClickHandler}
+        >
+            {children}
+        </button>
     );
 }
 
